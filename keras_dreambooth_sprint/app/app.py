@@ -29,7 +29,7 @@ def generate_images(prompt: str, negative_prompt: str, num_imgs_to_gen: int, inf
 with gr.Blocks() as demo:
     gr.HTML("<h2 style=\"font-size: 2rem; font-weight: 700; text-align: center;\">Keras Dreambooth - Voyager Demo</h2>")
     gr.HTML("<h3 style=\"font-size: 2rem; font-weight: 700; text-align: left;\">This model has been fine-tuned to learn the concept of Hokusai artist. \
-        To use this demo, you should have append your propmt with {hrypt style}</h3>")
+        To use this demo, you should have append your prompt with string {hrypttr style}</h3>")
     with gr.Row():
         with gr.Column():
             prompt = gr.Textbox(label="Positive Prompt", value="a painting image in hrypt style")
@@ -43,7 +43,7 @@ with gr.Blocks() as demo:
 
     run.click(fn=generate_images, inputs=[prompt, negative_prompt, samples, inference_steps, guidance_scale], outputs=gallery)
     
-    gr.Examples([["photo of a boy riding a horse in hrypt style, high quality, 8k", "bad, ugly, malformed, deformed, out of frame, blurry, cropped, noisy", 4, 50, 7.5]],
+    gr.Examples([["photo of a boy riding a horse in hrypttr style, high quality, 8k", "bad, ugly, malformed, deformed, out of frame, blurry, cropped, noisy", 4, 50, 7.5]],
                 [prompt, negative_prompt, samples, inference_steps, guidance_scale], gallery, generate_images, cache_examples=True)
     gr.Markdown('Demo created by [Lily Berkow](https://huggingface.co/melanit/)')
 
