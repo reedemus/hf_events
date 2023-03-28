@@ -10,7 +10,7 @@ resolution = 512
 dreambooth_model = models.StableDiffusion(
         img_width=resolution, img_height=resolution, jit_compile=True, 
     )
-loaded_diffusion_model = from_pretrained_keras("keras-dreambooth/dreambooth_diffusion_hokusai")
+loaded_diffusion_model = from_pretrained_keras("tgohblio/dreambooth_hogwarts_legacy")
 dreambooth_model._diffusion_model = loaded_diffusion_model
 
 
@@ -27,25 +27,25 @@ def generate_images(prompt: str, negative_prompt: str, num_imgs_to_gen: int, inf
     
 # Define the UI
 with gr.Blocks() as demo:
-    gr.HTML("<h2 style=\"font-size: 2rem; font-weight: 700; text-align: center;\">Keras Dreambooth - Voyager Demo</h2>")
-    gr.HTML("<h3 style=\"font-size: 2rem; font-weight: 700; text-align: left;\">This model has been fine-tuned to learn the concept of Hokusai artist. \
-        To use this demo, you should have append your prompt with string {hrypttr style}</h3>")
+    gr.HTML("<h2 style=\"font-size: 2rem; font-weight: 700; text-align: center;\">Keras Dreambooth - Hogwarts Legacy Demo</h2>")
+    gr.HTML("<h3 style=\"font-size: 2rem; font-weight: 700; text-align: left;\">This model has been fine-tuned to learn the concept of Hogwarts Legacy student characters. \
+        To use this demo, you should have append your prompt with string \'hogwarts [legacy] student\'</h3>")
     with gr.Row():
         with gr.Column():
-            prompt = gr.Textbox(label="Positive Prompt", value="a painting image in hrypt style")
+            prompt = gr.Textbox(label="Positive Prompt", value="a digital art of hogwarts [legacy] student in a forest")
             negative_prompt = gr.Textbox(label="Negative Prompt", value="bad anatomy, soft blurry")
-            samples = gr.Slider(label="Number of Images", minimum=1, maximum=10, value=1, step=1)
+            samples = gr.Slider(label="Number of Images", minimum=1, maximum=4, value=1, step=1)
             inference_steps = gr.Slider(label="Inference Steps", minimum=1, maximum=100, value=50, step=1)
-            guidance_scale = gr.Slider(label="Guidance Scale", value=7.5, step=0.1)
+            guidance_scale = gr.Slider(label="Guidance Scale", minimum=1, maximum=10, value=7.5, step=0.1)
             run = gr.Button(value="Run")
         with gr.Column():
             gallery = gr.Gallery(label="Outputs").style(grid=(1,2))
 
     run.click(fn=generate_images, inputs=[prompt, negative_prompt, samples, inference_steps, guidance_scale], outputs=gallery)
     
-    gr.Examples([["photo of a boy riding a horse in hrypttr style, high quality, 8k", "bad, ugly, malformed, deformed, out of frame, blurry, cropped, noisy", 4, 50, 7.5]],
+    gr.Examples([["realistic painting of a hogwarts [legacy] student riding a horse, high quality, 8k", "bad, ugly, malformed, deformed, out of frame, blurry, cropped, noisy", 4, 50, 7.5]],
                 [prompt, negative_prompt, samples, inference_steps, guidance_scale], gallery, generate_images, cache_examples=True)
-    gr.Markdown('Demo created by [Lily Berkow](https://huggingface.co/melanit/)')
+    gr.Markdown('Demo created by [Terrence Goh](https://huggingface.co/tgohblio/)')
 
 demo.queue(concurrency_count=3)
 demo.launch()    
